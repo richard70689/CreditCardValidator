@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CreditCardDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CreditCardDB.dbo.tblCreditCardsList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblCreditCardsList">
+          <Key>
+            <PropertyRef Name="fldSeqNo" />
+          </Key>
+          <Property Name="fldSeqNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fldCardNumber" Type="varchar" MaxLength="20" />
+          <Property Name="fldExpiryDate" Type="varchar" MaxLength="7" />
+          <Property Name="fldCardType" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <Function Name="sp_CreditCardNumberValidator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="creditCard" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="CreditCardDBModel1StoreContainer">
+          <EntitySet Name="tblCreditCardsList" EntityType="Self.tblCreditCardsList" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblCreditCardsList].[fldSeqNo] AS [fldSeqNo], 
+    [tblCreditCardsList].[fldCardNumber] AS [fldCardNumber], 
+    [tblCreditCardsList].[fldExpiryDate] AS [fldExpiryDate], 
+    [tblCreditCardsList].[fldCardType] AS [fldCardType]
+    FROM [dbo].[tblCreditCardsList] AS [tblCreditCardsList]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CreditCardDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCreditCardsList">
+          <Key>
+            <PropertyRef Name="fldSeqNo" />
+          </Key>
+          <Property Name="fldSeqNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fldCardNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fldExpiryDate" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="fldCardType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="CreditCardDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCreditCardsLists" EntityType="Self.tblCreditCardsList" />
+          <FunctionImport Name="sp_CreditCardNumberValidator" ReturnType="Collection(CreditCardDBModel1.sp_CreditCardNumberValidator_Result)">
+            <Parameter Name="creditCard" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_CreditCardNumberValidator_Result">
+          <Property Type="Int32" Name="fldSeqNo" Nullable="false" />
+          <Property Type="String" Name="fldCardNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="fldExpiryDate" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="fldCardType" Nullable="true" MaxLength="30" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CreditCardDBModel1StoreContainer" CdmEntityContainer="CreditCardDBEntities1">
+          <EntitySetMapping Name="tblCreditCardsLists">
+            <EntityTypeMapping TypeName="CreditCardDBModel1.tblCreditCardsList">
+              <MappingFragment StoreEntitySet="tblCreditCardsList">
+                <ScalarProperty Name="fldSeqNo" ColumnName="fldSeqNo" />
+                <ScalarProperty Name="fldCardNumber" ColumnName="fldCardNumber" />
+                <ScalarProperty Name="fldExpiryDate" ColumnName="fldExpiryDate" />
+                <ScalarProperty Name="fldCardType" ColumnName="fldCardType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_CreditCardNumberValidator" FunctionName="CreditCardDBModel1.Store.sp_CreditCardNumberValidator">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CreditCardDBModel1.sp_CreditCardNumberValidator_Result">
+                <ScalarProperty Name="fldSeqNo" ColumnName="fldSeqNo" />
+                <ScalarProperty Name="fldCardNumber" ColumnName="fldCardNumber" />
+                <ScalarProperty Name="fldExpiryDate" ColumnName="fldExpiryDate" />
+                <ScalarProperty Name="fldCardType" ColumnName="fldCardType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
