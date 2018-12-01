@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Index", "CreditCard", FormMethod.Post))
+        {
+            <p>
+                Please enter Credit Card No: @Html.TextBox("SearchString")
+                <input type="submit" value="Validate" />
+            </p>
+        }
+        <table border="1">
+            <tr>
+                <th>No</th>
+                <th>Credit Card No.</th>
+                <th>Expiry Date</th>
+            </tr>
+            @foreach (var card in ViewBag.listCreditCards)
+            {
+            <tr>
+                <td>@card.fldSeqNo</td>
+                <td>@card.fldCardNumber</td>
+                <td>@card.fldExpiryDate</td>
+            </tr>
+            }
+        </table>
+
+        <input type="text" value="@ViewBag.cardType"/>
+    </div>
+</body>
+</html>
